@@ -1,0 +1,3 @@
+rootProject.name = 'Vasudhaiva-Kutumbakam'
+include 'Vasudhaiva-Kutumbakam-Service'
+include 'Vasudhaiva-Kutumbakam-UI'

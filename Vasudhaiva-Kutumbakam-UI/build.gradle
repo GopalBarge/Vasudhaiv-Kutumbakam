@@ -12,19 +12,16 @@ buildscript {
     }
 }
 
+apply plugin: 'java'
 apply plugin: 'base'
 apply plugin: 'com.moowork.node'
 
-node {
-    /* gradle-node-plugin configuration
-     * https://github.com/srs/gradle-node-plugin/blob/master/docs/node.md
-     *
-     * Task name pattern: ./gradlew npm_<command> Executes an NPM command.
-     */
-    version = '12.16.1'
-    npmVersion = '6.13.4'
-    download = false
-}
+//node {
+//  version = '9.2.0'
+//  npmVersion = '6.4.1'
+//  download = true
+//}
+
 
 task packageNpmApp (type: Zip) {
     dependsOn npm_run_build
@@ -32,8 +29,11 @@ task packageNpmApp (type: Zip) {
     extension 'jar'
     destinationDir file("${projectDir}/dist")
     from('build') {
-        // optional path under which output will be visible in Java Classpath, e.g. static resources path
-        into 'static'
+      println("**************")
+      println("${rootProject}")
+
+      // optional path under which output will be visible in Java Classpath, e.g. static resources path
+        into '${rootProject}/Vasudhaiva-Kutumbakam-Service/resources/main/static'
     }
 }
 
@@ -51,7 +51,14 @@ artifacts {
     }
 }
 
+
+/*jar.dependsOn 'npm_run_build'
+
+jar {
+  // here "Vasudhaiva-Kutumbakam-UI" is the name of the Angular application specified in the ng new command
+  from 'dist/Vasudhaiva-Kutumbakam-UI' into '${rootProject}/Vasudhaiva-Kutumbakam-Service/static'
+}*/
 clean {
-    delete packageNpmApp.archivePath
-    delete file("${projectDir}/dist")
+  delete packageNpmApp.archivePath
+  delete file("${projectDir}/dist")
 }
